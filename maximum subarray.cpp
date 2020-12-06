@@ -1,9 +1,9 @@
 //O(nlogn) using DnC
 int maximum_sum(vector<int>& A,int low, int high){
     if (low == high)
-			return A[low];
+	return A[low];
     
-		int mid = (low + high) / 2;
+	int mid = (low + high) / 2;
  
         int left_max = A[mid];
         int sum = A[mid];
