@@ -1,24 +1,65 @@
-// https://leetcode.com/problems/multiply-strings/
-
 class Solution {
 public:
-    string multiply(string num1, string num2) {
-    string sum(num1.size() + num2.size(), '0');
-    
-    for (int i = num1.size() - 1; 0 <= i; --i) {
-        int carry = 0;
-        for (int j = num2.size() - 1; 0 <= j; --j) {
-            int tmp = (sum[i + j + 1] - '0') + (num1[i] - '0') * (num2[j] - '0') + carry;
-            sum[i + j + 1] = tmp % 10 + '0';
-            carry = tmp / 10;
+    string multiply(string num1, string num2)
+    {
+        int n1=num1.size(),n2=num2.size(),carry,mx=-1;
+        vector <string> s(n2);
+        string zero="";
+
+        for(int i=n2-1;i>=0;i--)
+        {
+            carry=0;
+            s[i]=zero;
+            for(int j=n1-1;j>=0;j--)
+            {
+                int x=(num1[j]-'0')*(num2[i]-'0');
+                x+=carry;
+                carry=x/10;
+                s[i]=(char(x%10+'0'))+s[i];
+            }
+            if(carry!=0)
+            {
+                s[i]=to_string(carry)+s[i];
+            }
+
+            mx=max(mx,(int)s[i].size());
+            zero+='0';
         }
-        sum[i] += carry;
+
+        for(int i=n2-1;i>=0;i--)
+        {
+            s[i]=string(mx-(int)s[i].size(),'$')+s[i];
+        }
+
+        carry=0;
+        string ans="";
+
+        for(int i=mx-1;i>=0;i--)
+        {
+            int x=0;
+            for(int j=n2-1;j>=0;j--)
+            {
+                if(s[j][i]!='$')x+=s[j][i]-'0';
+            }
+            x+=carry;
+            carry=x/10;
+            ans=(char)(x%10+'0')+ans;
+        }
+
+        if(carry!=0)
+        {
+            ans=to_string(carry)+ans;
+        }
+
+        //delete leading zeroes (if any)
+        int z=0;
+
+        for(int i=0;i<(int)ans.size()-1;i++)
+        {
+            if(ans[i]!='0')break;
+            z++;
+        }
+
+        return ans.substr(z,(int)ans.size()-z);
     }
-    
-    size_t startpos = sum.find_first_not_of("0");
-    if (string::npos != startpos) {
-        return sum.substr(startpos);
-    }
-    return "0";
-}
 };
