@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/count-good-nodes-in-binary-tree/
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -11,24 +13,20 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode *root, int maxSF, int &cnt){
-        if(!root) return;
-        
-        if(root->val >= maxSF){
-            cnt++;
-            maxSF = root->val;
-            cout<<maxSF<<"\n";
+    int ans=0;
+    void rec(TreeNode* root, int mx){
+        if(root==NULL) return;
+        if(root->val>=mx){
+            ans++;
+            mx=root->val;
         }
+        rec(root->left, mx);
+        rec(root->right, mx);
         
-        if(root->left) dfs(root->left, maxSF, cnt);
-        if(root->right) dfs(root->right, maxSF, cnt);        
         
     }
     int goodNodes(TreeNode* root) {
-        int cnt=0;
-        if(!root) return 0;
-    
-        dfs(root, root->val, cnt);
-        return cnt;
+        rec(root, root->val);
+        return ans;
     }
 };
