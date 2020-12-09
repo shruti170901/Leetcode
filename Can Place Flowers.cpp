@@ -1,15 +1,25 @@
 class Solution {
 public:
-    bool canPlaceFlowers(vector<int>& a, int n) {
-        int cnt=0;
-        int i=0,m=a.size();
-        while(i<m){
-            if (a[i] == 0 && (i == 0 || a[i - 1] == 0) && (i == m-1 || a[i + 1] == 0)) {
-                a[i] = 1;
-                cnt++;
-            }
-            i++;
+    bool canPlaceFlowers(vector<int>& f, int n) {
+        int ans=0, beg=0;
+        while(beg<f.size() && f[beg]==0)beg++;
+        if(beg==f.size()){
+            return ((beg+1) >= 2*n);
         }
-        return(n<=cnt);
+        ans = beg/2;
+        
+        int end=0;
+        while(end<f.size() && f[f.size()-end-1]==0)end++;
+        ans += end/2;
+        int c=0;
+        for(int i=beg+1; i<=f.size()-end-1; i++){
+            if(f[i]==0)c++;
+            else{
+                ans += (c-1)/2;
+                c=0;
+            }
+        }
+        return (ans>=n);
     }
 };
+

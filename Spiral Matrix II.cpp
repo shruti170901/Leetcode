@@ -1,11 +1,16 @@
 
-/*a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.*/
+
+/*a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
 Input : n=3
 Output : [[1,2,3],[8,9,4],[7,6,5]]
+*/
+// https://leetcode.com/problems/spiral-matrix-ii/
+
 
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
+
         //Here We will create a 2D matrix n x n using vector
         vecor<vector<int> >ans(n);
         for(int i=0;i<n;i++){

@@ -1,9 +1,3 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
-*/
-
 class Solution {
 public:
     TreeNode* increasingBST(TreeNode* root, TreeNode* tail =NULL) {
@@ -14,3 +8,4 @@ public:
         return res;
     }
 };
+
