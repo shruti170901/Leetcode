@@ -1,24 +1,24 @@
-class Solution {
+//Super Ugly Number
+#define ll long long int
+class Solution
+{
 public:
-    int nthSuperUglyNumber(int n, vector<int>& primes) {
-        vector<int> pos(primes.size(), 0);
-        vector<int> num(n, 0);
-        num[0]=1;       
-        for(int i=1; i<n; i++){
-            num[i]= primes[0]*num[pos[0]];
-            for(int j=0; j<primes.size(); j++){
-                num[i]= min(num[i], primes[j]*num[pos[j]]);
-            }
-            for(int j=0; j<primes.size(); j++){
-                if(num[i]==primes[j]*num[pos[j]]){
-                    pos[j]++;
-                }
-            }
-            
+    int nthSuperUglyNumber(int n, vector<int> &primes)
+    {
+        ll top, i = 0;
+        vector<int> arr(n, -1);
+        priority_queue<ll, vector<ll>, greater<ll>> pq = {};
+        pq.push(1);
+        while (!pq.empty() && arr[n - 1] == -1)
+        {
+            top = pq.top();
+            arr[i++] = top;
+            pq.pop();
+            for (auto elt : primes)
+                pq.push(top * elt);
+            while (!pq.empty() && top == pq.top())
+                pq.pop();
         }
-        
-        cout<<n;
-        return num[n-1];
+        return arr[n - 1];
     }
-
 };
