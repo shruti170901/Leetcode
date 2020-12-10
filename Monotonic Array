@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdbool.h>
+int isMonotonic(int* A, int ASize){
+    int j,k,l=0;
+    for(j=0;j<(ASize-1);j++)
+    {
+        if(A[j+1]>=A[j])
+        {
+          l++;
+        }
+    }
+    if(l==(ASize-1))
+        return 1;
+    l=0;
+    for(j=0;j<(ASize-1);j++)
+    {
+        if(A[j+1]<=A[j])
+        {
+          l++;
+        }
+    }
+    if(l==(ASize-1))
+        return 1;
+    return 0;
+
+
+}
+
+int main() {
+    int ASize,i;
+    printf("Enter the number of elements of your array: ");
+    scanf("%d",&ASize);
+    int A[50000];
+    printf("\nEnter the elements of your array:");
+
+	for(i=0;i<50000;i++)
+	    {
+	        A[i]=100001;
+	    }
+	for(i=0;i<ASize;i++)
+	    {
+	        scanf("%d",&A[i]);
+	    }
+	if(isMonotonic(A,ASize)==1)
+	{
+	    printf("TRUE");
+	}
+	else
+	{
+	    printf("FALSE");
+	}
+	// your code goes here
+	return 0;
+}
