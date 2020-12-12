@@ -1,31 +1,16 @@
+// https://leetcode.com/problems/count-number-of-teams/
+
 class Solution {
 public:
-    int numTeams(vector<int>& rating) {
-        int i,ctr = 0;
-        for(i=0;i<rating.size();i++){
-            for(int j=i;j<rating.size();j++){
-                if(rating[j]>rating[i]){
-                   for(int k = j; k<rating.size();k++){
-                      if(rating[k]>rating[j]){
-                         ++ctr;
-                    }
-                }
-
+    int numTeams(vector<int>& r) {
+        int ans=0;
+        for(int i=0;i<r.size();i++){
+            for(int j=i+1;j<r.size();j++){
+                for(int k=j+1;k<r.size();k++){
+                    if((r[i]>r[j] && r[j]>r[k]) || (r[i]<r[j] && r[j]<r[k])) ans++;
                 }
             }
         }
-        for(i=0;i<rating.size();i++){
-            for(int j=i;j<rating.size();j++){
-                if(rating[j]<rating[i]){
-                for(int k = j; k<rating.size();k++){
-                    if(rating[k]<rating[j]){
-                         ++ctr;
-                    }
-                }
-
-                }
-            }
-        }
-        return ctr;
+        return ans;
     }
 };
