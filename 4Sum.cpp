@@ -1,24 +1,56 @@
 class Solution {
 public:
-    vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        sort(nums.begin(), nums.end());
-        vector<vector<int>> ans;
-        for(auto it=nums.begin();it!=nums.end();it++){
-            //cout<<it-nums.begin()<<" ";
-            for(auto jt=it+1;jt!=nums.end();jt++){
-                //cout<<*it<<" "<<*jt<<endl;
-                for(auto kt=jt+1; kt!=nums.end();kt++){
-                    if(binary_search(kt+1, nums.end(), target-(*it+*jt+*kt))){
-                        vector<int> temp {*it, *jt, *kt, target-(*it+*jt+*kt)};
-                        ans.push_back(temp);
-                    }
-                    while(kt!=(--nums.end())&&*kt==*(kt+1)) kt++;
+    map<vector<int>,bool>mp;
+   vector<vector<int>>myans;
+    void find(vector<int>& nums, int target,int i,int a,int b){
+        int l=i,r=nums.size()-1;
+        vector<int>x;
+        x.push_back(a);
+        x.push_back(b);
+        while(l<r){
+            if(nums[l]+nums[r]==target){
+                x.push_back(nums[l]);
+                x.push_back(nums[r]);
+                sort(x.begin(),x.end());
+                if(mp.find(x)==mp.end()){
+                  mp[x]=true;
+                myans.push_back(x);
                 }
-                while(jt!=(--nums.end())&&*jt==*(jt+1)) {jt++;}
+                x.pop_back();
+                x.pop_back();
+                l++;r--;
             }
-            //cout<<it-nums.begin()<<endl;
-            while(it!=(--nums.end()) && *it==*(it+1)) it++;
-        }
-        return ans;
+            else if(nums[l]+nums[r]<target){
+                l++;
+            }
+            else{
+                r--;
+            }
+        
+        }  
     }
-};
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        if(nums.size()<4){
+          vector<vector<int>>v;
+            return v;
+        }
+     
+        vector<vector<int>>ans;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<nums.size()-2;i++){  
+            if(i==0||(i!=0&&nums[i-1]!=nums[i])){
+            int sum=target-nums[i];
+            for(int j=i+1;j<nums.size()-1;j++){
+                sum=sum-nums[j];
+                find(nums,sum,j+1,nums[i],nums[j]);
+                sum+=nums[j];
+                while(j<nums.size()-1&&nums[j]==nums[j+1]){
+                    j++;
+                }
+                }  
+            }
+          }
+        return myans;
+    }
+    
+}; 
