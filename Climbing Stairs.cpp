@@ -1,14 +1,12 @@
-// https://leetcode.com/problems/climbing-stairs/
-
 class Solution {
 public:
+    int fib(int n) { 
+        double phi = (1 + sqrt(5)) / 2; 
+        return round(pow(phi, n) / sqrt(5)); 
+    } 
     int climbStairs(int n) {
-        if(n<=1) return 1;
-        int f1=1, f2=1;
-        while(n-->=2){
-            f2+=f1;
-            f1=f2-f1;
-        }
-        return f2;
+         n=fib(n+1);
+        return n;
     }
 };
+
