@@ -1,18 +1,18 @@
-class Solution
-{
+// https://leetcode.com/problems/find-all-duplicates-in-an-array/
+
+class Solution {
 public:
-    vector<int> findDuplicates(vector<int> &nums)
-    {
-        vector<int> output;
-        for (int i = 0; i < nums.size(); i++)
-        {
-            int index = abs(nums[i]) - 1;
-            if (nums[index] < 0)
-            {
-                output.push_back(index + 1);
+    vector<int> findDuplicates(vector<int>& A) {
+        int i, n=A.size();
+        for(i=0;i<n;i++) A[i]--;
+        for(i=0;i<n;i++){
+            if(A[i]!=i){
+                while(A[i]!=i && A[A[i]]!=A[i]) swap(A[i], A[A[i]]);
             }
-            nums[index] = -nums[index];
         }
-        return output;
+        for(i=0;i<n;i++) cout<<A[i]<<" "; cout<<endl;
+        vector<int> ans;
+        for(i=0;i<n;i++) if(A[i]!=i) ans.push_back(A[i]+1);
+        return ans;
     }
 };

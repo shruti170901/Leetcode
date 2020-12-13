@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isMonotonic(vector<int>& A) {
+        vector<int> :: iterator it;
+        int l=0;
+        for(it=A.begin();it<(A.end()-1);it++){
+            if(*(it)<=(*(it+1)))
+                l++;
+        }
+        if(l==(A.size()-1))
+            return 1;
+        l=0;
+        for(it=A.begin();it<(A.end()-1);it++){
+            if(*(it)>=(*(it+1)))
+                l++;
+        }
+        if(l==(A.size()-1))
+            return 1;
+        l=0;
+        return 0;
+    }
+};
