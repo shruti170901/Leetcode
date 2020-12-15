@@ -1,51 +1,47 @@
+
+
+/*a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+Input : n=3
+Output : [[1,2,3],[8,9,4],[7,6,5]]
+*/
 // https://leetcode.com/problems/spiral-matrix-ii/
+
 
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
-        vector<vector<int>> v(n, vector<int>(n));
-        if(n==0) return v;
-        int i=0, j=0, l, r, u, d, flag=0, cnt=1;
-        l=0; r=n-1; u=0; d=n-1;
-        while(cnt<=n*n){
-            if(flag==0){
-                if(j<r){v[i][j++]=cnt;}
-                else{
-                    v[i][j]=cnt;
-                    flag=1;
-                    u=i+1;
-                    i++;
-                }
-            }
-            else if(flag==1){
-                if(i<d){v[i++][j]=cnt;}
-                else{
-                   v[i][j]=cnt;
-                    flag=2;
-                    r=j-1;
-                    j--;
-                }
-            }
-            else if(flag==2){
-                if(j>l) v[i][j--]=cnt;
-                else{
-                    v[i][j]=cnt;
-                    flag=3;
-                    d=i-1;
-                    i--;
-                }
-            }
-            else{
-                if(i>u) v[i--][j]=cnt;
-                else{
-                    v[i][j]=cnt;
-                    flag=0;
-                    l=j+1;
-                    j++;
-                }
-            }
-            cnt++;
+
+        //Here We will create a 2D matrix n x n using vector
+        vecor<vector<int> >ans(n);
+        for(int i=0;i<n;i++){
+             ans.resize(n);
         }
-        return v;
+        int cnt=1; 
+        int i=0,j=n-1;
+        while(cnt<=n*n){
+            //Moving top row from left to right
+            for(int k=i;k<=j;k++){
+                ans[i][k]=cnt;
+                cnt++;
+            }
+            //Moving right column from top to bottom
+            for(int l=i+1;l<=j; l++){
+                ans[l][j]=cnt;
+                cnt++;
+            }
+            //Moving bottom row from right to left
+            for(int m=j-1;m>=i;m--){
+                ans[j][m]=cnt;
+                cnt++;
+            }
+            //Moving left column from bottom to top
+            for(int p=j-1;p>i;p--){
+                ans[p][i]=cnt;
+                cnt++;
+            }
+            j--;
+            i++;
+         }
+        return ans;//return 2D vector
     }
 };

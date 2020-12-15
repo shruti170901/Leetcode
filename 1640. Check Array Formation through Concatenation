@@ -1,0 +1,25 @@
+struct Solution {
+    static const bool canFormArray(
+        const std::vector<int>& arr,
+        const std::vector<std::vector<int>>& pieces
+    ) {
+        std::unordered_map<unsigned int, std::vector<int>> starts_partitions;
+
+        for (const auto& piece : pieces) {
+            starts_partitions[piece[0]] = piece;
+        }
+
+        std::vector<int> form_array;
+
+        for (const auto& num : arr) {
+            form_array.insert(
+                std::end(form_array),
+                std::begin(starts_partitions[num]),
+                std::end(starts_partitions[num])
+            );
+        }
+
+        return form_array == arr;
+    }
+
+};

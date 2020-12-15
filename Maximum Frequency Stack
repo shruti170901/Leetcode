@@ -23,3 +23,37 @@ public:
         return ans;
     }
 };
+    int mFreq;
+    unordered_map<int, stack<int>> mymap;
+    unordered_map<int,int> nFreq;
+    
+    FreqStack() {
+        mFreq = 0;
+    }
+    
+    void push(int x) {
+        if(nFreq.count(x)){
+            nFreq[x]++;
+        }
+        else{
+            nFreq[x]=1;
+        }
+        mymap[nFreq[x]].push(x);
+        mFreq = max(mFreq,nFreq[x]);
+    }
+    
+    int pop() {
+        int a = mymap[mFreq].top();
+        mymap[mFreq].pop();
+        nFreq[a]--;
+        if(mymap[mFreq].empty()) mFreq--;
+        return a;
+    }
+};
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack* obj = new FreqStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ */

@@ -1,19 +1,32 @@
 class Solution{
 public:
-    vector<vector<int>> allPathsSourceTarget(vector<vector<int>> &graph) {
-        vector<vector<int>> ans;
-        vector<int> tmp;
-        f(graph , ans , tmp , 0);
-        return ans;
-    }
-
-    void f(vector<vector<int>> &graph, vector<vector<int>> &ret, vector<int> tout, int start) {
-        tout.push_back(start);
-        if (tout.back() == graph.size() - 1) {
-            ret.push_back(tout);
+ vector<vector<int>>w;
+    void paths(vector<vector<int>>& graph,int s,int d, vector<int>&v,vector<bool>&isdone){
+        if(s==d){
+           w.push_back(v);
             return;
         }
-        for (auto it : graph[start]) 
-            f(graph, ret, tout, it);
+         isdone[s]=true;
+        for(int i=0;i<graph[s].size();i++){
+            if(!isdone[graph[s][i]]){
+                v.push_back(graph[s][i]);
+                paths(graph,graph[s][i],d,v,isdone);
+                v.pop_back();
+               }
+        }
+        isdone[s]=false;
+    }
+    
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        if(graph.size()==0){
+              vector<vector<int>>x;
+            return x;
+        }
+         vector<int>v;
+        int n=graph.size();
+        v.push_back(0);
+        vector<bool>isdone(n,false);
+        paths(graph,0,n-1,v,isdone);
+        return w;
     }
 };
