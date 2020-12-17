@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool circularArrayLoop(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] == 0) {
+                continue;
+            }
+            int back = i, ahead = i;
+            while (nums[next(nums, back)] * nums[i] > 0 &&
+                   nums[next(nums, ahead)] * nums[i] > 0 &&
+                   nums[next(nums, next(nums, ahead))] * nums[i] > 0) {
+
+                back = next(nums, back);
+                ahead = next(nums, next(nums, ahead));
+                if (back == ahead) {
+                    if (back == next(nums, back)) {
+                        break;
+                    }
+                    return true;
+                }
+            }
+            back = i;
+            while (nums[back] * nums[i] > 0) {
+                nums[back] = 0;
+                back = next(nums, back);
+            }
+        }
+        return false;
+    }
+
+private:
+    int next(const vector<int>& nums, int i) {
+        return ((i + nums[i]) + nums.size()) % nums.size();
+    }
+};
