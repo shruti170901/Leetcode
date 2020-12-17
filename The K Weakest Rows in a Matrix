@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        vector<pair<int,int>> qnt ;
+        for ( int i=0 ; i<mat.size() ; i++ ) {
+            int c = 0 ;
+            for ( int j=0 ; j<mat[i].size() ; j++ ) {
+                if(mat[i][j]==1)  c++ ;
+            }
+            qnt.push_back(pair<int,int>(c,i)) ;
+        }
+        std::sort(qnt.begin(),qnt.end()) ;
+        vector<int> ret ;
+        for ( auto it = qnt.begin() ; it!=qnt.end() ; ++it ) {
+            k-- ;
+            ret.push_back(it->second) ;
+            if(k==0)    break ;
+        }
+    	return ret ;
+    }
+};
