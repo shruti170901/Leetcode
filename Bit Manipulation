@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int l = nums.size();
+        vector<vector<int>> sub;
+        for(int i=0; i<(1<<l); i++)
+        {
+            int j=0,n=i;
+            vector<int> arr;
+            while(n>0)
+            {
+                if((n&1) == 1)
+                {
+                    arr.push_back(nums[j]);
+                }
+                j++;
+                n = n>>1;
+            }
+            sub.push_back(arr);
+        }
+        return sub;
+        
+    }
+};

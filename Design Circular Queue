@@ -1,0 +1,65 @@
+class MyCircularQueue {
+    int front , rear , capacity;
+    int *arr;
+public:
+    MyCircularQueue(int k) {
+        capacity = k;
+        rear = front = -1;
+        arr = new int[k];
+    }
+    
+    bool enQueue(int value) {
+        if(rear == -1){
+            rear = front = 0;
+            arr[rear] = value;
+            return true;
+        }
+        if((rear+1)%capacity == front){
+            return false;
+        }
+        rear = (rear+1)%capacity;
+        arr[rear] = value;
+        return true;
+    }
+    
+    bool deQueue() {
+        if(rear == -1){
+            return false;
+        }
+        if(rear == front){
+            rear = front = -1;
+            return true;
+        }
+        front = (front + 1)%capacity;
+        return true;
+    }
+    
+    int Front() {
+        if(rear == -1){
+            return -1;
+        }
+        return arr[front];
+    }
+    
+    int Rear() {
+        if(rear == -1){
+            return -1;
+        }
+        return arr[rear];
+    }
+    
+    bool isEmpty() {
+        if(rear == -1){
+            return true;
+        }
+        return false;
+    }
+    
+    bool isFull() {
+        if((rear+1)%capacity == front){
+            return true;
+        }
+        return false;
+    }
+};
+

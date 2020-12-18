@@ -1,3 +1,4 @@
+
 class Solution {
 public:
     int countVowelStrings(int n) {
@@ -12,5 +13,6 @@ public:
         int ans=0;
         for(int i=0;i<5;i++)ans+=dp[n][i];
         return ans;
+
     }
 };
