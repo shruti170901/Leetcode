@@ -1,0 +1,31 @@
+const int maxn = 102;
+int dp[maxn];
+
+class Solution {
+public:
+    int maxHeight(vector<vector<int>>& cub) {
+        int m = cub.size();
+        
+        for (auto &v: cub)
+            sort(v.rbegin(), v.rend());
+        
+        sort(cub.begin(), cub.end());
+        
+        memset(dp, 0, sizeof(dp));
+        
+        int ans = 0;
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (j != 0 && !isValid(j-1, i-1, cub)) continue;
+                dp[i] = max(dp[i], dp[j] + cub[i-1][0]);
+                ans = max(ans, dp[i]);
+            }
+        }
+        
+        return ans;
+    }
+    
+    bool isValid(int j, int i, vector<vector<int>>& cub) {
+        return cub[j][0] <= cub[i][0] && cub[j][1] <= cub[i][1] && cub[j][2] <= cub[i][2];
+    }
+};
