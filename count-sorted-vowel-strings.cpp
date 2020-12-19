@@ -1,22 +1,18 @@
-// Time:  O(1)
-// Space: O(1)
 
 class Solution {
 public:
     int countVowelStrings(int n) {
-        return nCr(n + 4, 4);  // H(5, n) = C(n+5-1, n) = C(n+4, 4)
-    }
+        int dp[n+1][5];
+        memset(dp,0,sizeof dp);
+        for(int i=0;i<5;i++)dp[1][i]=1;
+        for(int i = 2; i <= n; i++){
+            dp[i][0]+=dp[i-1][0];dp[i][1]+=dp[i-1][1]+dp[i][0];
+            dp[i][2]+=dp[i-1][2]+dp[i][1];dp[i][3]+=dp[i-1][3]+dp[i][2];
+            dp[i][4]+=dp[i-1][4]+dp[i][3];
+        }
+        int ans=0;
+        for(int i=0;i<5;i++)ans+=dp[n][i];
+        return ans;
 
-private:
-    uint64_t nCr(int n, int r) {  // Time: O(n), Space: O(1)
-        if (n - r < r) {
-            return nCr(n, n - r);
-        }
-        uint64_t c = 1;
-        for (int k = 1; k <= r; ++k) {
-            c *= n - k + 1;
-            c /= k;
-        }
-        return c;
     }
 };
