@@ -10,10 +10,10 @@ public:
         vector<int>ans;
         for(int i=0;i<n;i++)
         {
-            int val=nums[i];  // storing current value of nums[i];
-            int left_count=i;  // count no. of elements on left of index i;
-            int right_count=n-i-1;  // count no. of elements on right of index i;
-            int temp1=0;
+            int val=nums[i];  
+            int left_count=i;  
+            int right_count=n-i-1;  
+			int temp1=0;
             if(i-1>=0)
             temp1+=pre[i-1];  // store sum from 0 to (i-1)index;
             int temp2=0;
