@@ -1,4 +1,5 @@
 // Number of Ways of Cutting a Pizza
+// https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/
 class Solution {
 public:
     int dp[51][51][10],n,m,M=(int)1e9+7;
