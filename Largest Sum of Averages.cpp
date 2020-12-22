@@ -26,12 +26,10 @@ public:
             ans = max(temp, ans);
         }
         t[i][K] = ans;
-        //cout<<ans<<endl;
         return ans;
     }
     double largestSumOfAverages(vector<int> &A, int K)
     {
-
         int n = A.size();
         vector<double> sum(n, 0);
         sum[0] = A[0];
