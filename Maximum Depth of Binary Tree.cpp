@@ -1,5 +1,3 @@
-// https://leetcode.com/problems/maximum-depth-of-binary-tree/
-
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -13,16 +11,10 @@
  */
 class Solution {
 public:
-    void rec(TreeNode* root, int h, int &mx){
-        if(root==NULL) return;
-        mx=max(h, mx);
-        rec(root->left, h+1, mx);
-        rec(root->right, h+1, mx);
-    }
-    int maxDepth(TreeNode* root) {
-        int mx=1;
-        if(root==NULL) return 0;
-        rec(root, 1, mx);
-        return mx;
+int maxDepth(TreeNode* root) {
+        if(root == NULL){
+            return 0;
+        }
+        return max(maxDepth(root->left)+1,maxDepth(root->right)+1);
     }
 };

@@ -1,5 +1,3 @@
-// https://leetcode.com/problems/reorder-list/
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -10,39 +8,36 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+#define ll long long 
 class Solution {
 public:
-    ListNode* rev(ListNode* h){
-        ListNode* curr=h, *prev=NULL, *nex=NULL;
-        while(curr){
-            nex=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=nex;
-        }
-        return prev;
-    }
     void reorderList(ListNode* head) {
-        ListNode* t1=head, *t2=head;
-        if(head==NULL || head->next==NULL) return;
-        while(t2!=NULL && t2->next!=NULL){
-            t1=t1->next;
-            t2=t2->next->next;
+        if(!head){
+            return ;
         }
-        ListNode *t3, *t4;
-        t2=t1->next;
-        t2=rev(t2);
-        t1->next=NULL;
-        t1=head;
-        int flag=0;
-        while(t1 && t2){
-            t3=t1->next;
-            t4=t2->next;
-            t1->next=t2;
-            t2->next=t3;
-            t1=t3;
-            t2=t4;
+        if(!head->next){
+            return;
         }
-        return;
+        if(!head->next->next){
+            return;
+        }
+        stack<ListNode*>list;
+        ListNode* ptr=head;
+        ListNode* start=head;
+        int size=0;
+        while(ptr!=NULL){
+            list.push(ptr);
+            size++;
+            ptr=ptr->next;
+        }
+        ListNode* temp=NULL;
+        for(int i=0;i<size/2;i++){
+            temp=list.top();
+            list.pop();
+            temp->next=start->next;
+            start->next=temp;
+            start=start->next->next;
+        }
+        start->next = NULL;
     }
 };
