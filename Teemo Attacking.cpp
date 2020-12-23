@@ -8,7 +8,8 @@ public:
         {
             return 0;
         }
-        else{
+        else
+        {
         for(i=0;i<(timeSeries.size()-1);i++)
         {
             flag = flag + min(duration,timeSeries[i+1]-timeSeries[i]); 
