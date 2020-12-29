@@ -1,22 +1,22 @@
-// https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to/
-
 class Solution {
 public:
-    vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
-        vector<vector<int>> ans;
-        vector<pair<int, int>> group;
-        for(int i=0;i<groupSizes.size();i++){
-            group.push_back(make_pair(groupSizes[i], i));
+    vector<vector<int>> groupThePeople(vector<int>& gs) {
+        vector<vector<int>> res;
+        unordered_map<int,vector<int>> mp;
+        for (int i = 0; i < gs.size(); ++i) {
+            mp[gs[i]].push_back(i);
         }
-        sort(group.begin(), group.end());
-        int i, j;
-        for(i=0;i<group.size();i=j){
-            vector<int> v;
-            for(j=i;j<i+group[i].first;j++){
-                v.push_back(group[j].second);
+        for (auto x : mp) {
+             int i = x.first; 
+             vector<int> v = x.second;
+             vector<int> t(i);
+             for (int j = 0; j < v.size(); ++j) {
+                 t[j % i] = v[j];
+                 if ((j + 1) % i == 0) {
+                     res.push_back(t);
+                 }
             }
-            ans.push_back(v);
         }
-        return ans;
+        return res;
     }
 };
